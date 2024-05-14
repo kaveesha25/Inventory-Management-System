@@ -1,0 +1,21 @@
+.main-container {
+    display: flex;
+    width: 100%;
+    margin: 0; /* Add this line to remove default margins */
+  }
+  
+  .sidebar {
+    width: 200px;
+  }
+  
+  .content {
+    flex-grow: 1;
+  }
+  
+  .chart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   /* Adjust the height as needed */
+  }
+  

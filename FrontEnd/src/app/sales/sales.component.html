@@ -1,0 +1,107 @@
+<app-upper-navbar></app-upper-navbar>
+
+<div class="main-container">
+  <div class="sidebar">
+    <app-right-sidebar></app-right-sidebar>
+  </div>
+
+  <div class="content">
+    <div class="container-fluid">
+      <h1 class="h3 mb-2 text-gray-800">Sales</h1>
+
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Sales Details</h6>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <input type="text" [(ngModel)]="searchText" (input)="applyFilter()" placeholder="Search" style="margin-bottom: 7px;height: 30px;border-radius: 5px;" />
+            <button style="float: right;margin-bottom: 10px;" (click)="GenerateReport()" class="btn btn-info">Generate Report</button>
+            <table>
+              <thead>
+                <tr>
+                  <th (click)="sortTable('TransactionID')">
+                    Transaction ID
+                    <i class="sort-indicator" [ngClass]="{'sort-asc': sortKey === 'TransactionID' && sortAsc, 'sort-desc': sortKey === 'TransactionID' && !sortAsc}"></i>
+                  </th>
+                  <!-- <th (click)="sortTable('ProductID')">
+                    Product ID
+                    <i class="sort-indicator" [ngClass]="{'sort-asc': sortKey === 'ProductID' && sortAsc, 'sort-desc': sortKey === 'ProductID' && !sortAsc}"></i>
+                  </th> -->
+                  <th (click)="sortTable('UserName')">
+                    User Name
+                    <i class="sort-indicator" [ngClass]="{'sort-asc': sortKey === 'UserName' && sortAsc, 'sort-desc': sortKey === 'UserName' && !sortAsc}"></i>
+                  </th>
+                  <th (click)="sortTable('Date')">
+                    Date
+                    <i class="sort-indicator" [ngClass]="{'sort-asc': sortKey === 'Date' && sortAsc, 'sort-desc': sortKey === 'Date' && !sortAsc}"></i>
+                  </th>
+                  <th (click)="sortTable('TotalQuantity')">
+                    Total Quantity
+                    <i class="sort-indicator" [ngClass]="{'sort-asc': sortKey === 'TotalQuantity' && sortAsc, 'sort-desc': sortKey === 'TotalQuantity' && !sortAsc}"></i>
+                  </th>
+                  <th (click)="sortTable('TotalAmount')">
+                    Total Amount
+                    <i class="sort-indicator" [ngClass]="{'sort-asc': sortKey === 'TotalAmount' && sortAsc, 'sort-desc': sortKey === 'TotalAmount' && !sortAsc}"></i>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of getPageData()" (click)="selectTransaction(item.TransactionID)">
+                  <td>{{ item.TransactionID }}</td>
+                  <!-- <td>{{ item.Products[0]?.ProductID }}</td> -->
+                  <td>{{ item.UserName }}</td>
+                  <td>{{ item.Date }}</td>
+                  <td>{{ item.TotalQuantity }}</td>
+                  <td>{{ item.TotalAmount }}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="pagination">
+              <button class="pagination-btn" [class.active]="currentPage === page" *ngFor="let page of getPaginationArray()" (click)="goToPage(page)">
+                {{ page }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div *ngIf="selectedTransaction">
+        <h2>Selected Transaction Details</h2>
+        <p>Transaction ID: {{ selectedTransaction.TransactionID }}</p>
+        <p>User Name: {{ selectedTransaction.UserName }}</p>
+        <p>Date: {{ selectedTransaction.Date }}</p>
+        <p>Total Quantity: {{ selectedTransaction.TotalQuantity }}</p>
+        <p>Total Amount: {{ selectedTransaction.TotalAmount }}</p>
+        <h3>Products:</h3>
+        <ul>
+          <li *ngFor="let product of selectedTransaction.products">
+            Product ID: {{ product.ProductID }}, Product Name: {{ product.ProductName }}, Quantity: {{ product.Quantity }}, Price: {{ product.Price }}
+          </li>
+        </ul>
+      </div> -->
+
+      <div *ngIf="selectedTransaction" class="modal" [ngStyle]="{'display': selectedTransaction ? 'flex' : 'none'}" (click)="closeModal()">
+        <div class="modal-content" (click)="$event.stopPropagation()">
+          <!-- Content of the modal (selected transaction details) -->
+          <h4>Selected Transaction Details</h4>
+          <p>Transaction ID: {{ selectedTransaction.TransactionID }}</p>
+          <p>User Name: {{ selectedTransaction.UserName }}</p>
+          <p>Date: {{ selectedTransaction.Date }}</p>
+          <p>Total Quantity: {{ selectedTransaction.TotalQuantity }}</p>
+          <p>Total Amount: {{ selectedTransaction.TotalAmount }}</p>
+          <h4>Products:</h4>
+          <ul>
+            <li *ngFor="let product of selectedTransaction.products">
+              Product ID: {{ product.ProductID }}, Product Name: {{ product.ProductName }}, Quantity: {{ product.Quantity }}, Price: {{ product.Price }}
+            </li>
+          </ul>
+          <!-- Add other transaction details here -->
+          <button (click)="closeModal()">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>

@@ -1,0 +1,108 @@
+<!-- <div class="container">
+    <div class="signup-container">
+      <h2>Sign Up</h2>
+      <form (ngSubmit)="signup()" #signupForm="ngForm">
+        <div class="form-group">
+          <label for="firstName">First Name:</label>
+          <input type="text" id="firstName" name="firstName" [(ngModel)]="firstName" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="lastName">Last Name:</label>
+          <input type="text" id="lastName" name="lastName" [(ngModel)]="lastName" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" [(ngModel)]="username" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="phoneNumber">Phone Number:</label>
+          <input type="text" id="phoneNumber" name="phoneNumber" [(ngModel)]="phoneNumber" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="position">Position:</label>
+          <select id="position" name="position" [(ngModel)]="position" class="form-control" required>
+            <option value="Manager">Manager</option>
+            <option value="Employee">Employee</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" [(ngModel)]="password" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Sign Up</button>
+        <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
+      </form>
+    </div>
+</div>
+   -->
+
+
+<body>
+
+    <div class="container">
+
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <img src="../../assets/logo.png" alt="Logo" class="logo" style="width: 300px;height: 270px;margin-top: 100px;margin-left: 50px;">
+                    <div class="col-lg-7">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                            </div>
+                            <form class="user">
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">  
+                                        <input type="text" id="firstName" name="firstName" [(ngModel)]="firstName" placeholder="First Name" class="form-control form-control-user" required>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="text" id="lastName" name="lastName" [(ngModel)]="lastName" placeholder="Last Name" class="form-control form-control-user" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <input type="text" id="username" name="username" [(ngModel)]="username" class="form-control form-control-user" placeholder="Username" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" id="phoneNumber" name="phoneNumber" [(ngModel)]="phoneNumber" placeholder="Phone Number" class="form-control form-control-user" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="small" for="position">Position:</label>
+                                    <select id="position" name="position" [(ngModel)]="position" placeholder="Phone Number" class="form-control" required>
+                                      <option value="Manager">Manager</option>
+                                      <option value="Shop keeper">Shop keeper</option>
+                                    </select>
+                                  </div>
+                                  
+                                  
+                                <div class="form-group">
+                                        <input type="password" id="password" name="password" [(ngModel)]="password" class="form-control form-control-user" placeholder="Password" required>
+                                </div>
+                                <button type="signup" (click)="signup()" class="btn btn-primary btn-user btn-block">Register Account</button>
+                                <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
+                            </form>
+                            <hr>
+                            <div class="text-center">
+                                <a class="small" routerLink="/login">Already have an account? Login!</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+</body>
+

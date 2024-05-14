@@ -1,0 +1,127 @@
+<app-upper-navbar></app-upper-navbar>
+<!-- <app-right-sidebar></app-right-sidebar> -->
+
+<div class="main-container">
+  <div class="sidebar">
+    <app-right-sidebar></app-right-sidebar>
+  </div>
+
+  <div class="content">
+    <!-- Add your table markup here -->
+    <div class="container-fluid">
+
+      <!-- Page Heading -->
+      <h1 class="h3 mb-2 text-gray-800">Suppliers</h1>
+
+      <!-- DataTales Example -->
+      <div class="card shadow mb-4">
+          <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Supplier Details</h6>
+          </div>
+          <div class="card-body">
+              <div class="table-responsive">
+                <input type="text" [(ngModel)]="searchText" (input)="applyFilter()" placeholder="Search" style="margin-bottom: 7px;height: 30px;border-radius: 5px;"/>
+                 <!-- Delete Product Button -->
+                 <button style="float: right;margin-bottom: 10px;" class="btn btn-danger" (click)="deleteProduct()">Delete Supplier</button> 
+    
+                <!-- Add New Product Button -->
+                 <button style="float: right; margin-right: 20px;" class="btn btn-primary" (click)="addNewProduct()">Add New Supplier</button>
+                 
+                 <div *ngIf="showDeleteProductForm" class="delete-form">
+                  
+                  <form [formGroup]="SupplierDeleteForm" (submit)="confirmDeleteSupplier()">
+                    <div class="form-group">
+                      <label for="SupplierIdToDelete">Supplier ID</label>
+                      <input type="text" class="form-control" id="SupplierIdToDelete" formControlName="SupplierIdToDelete" required>
+                    </div>
+                    <button style = "margin-bottom: 10px;" type="submit" class="btn btn-danger">Confirm Delete</button>
+                    <button style = "margin-left: 10px; margin-bottom: 10px;" type="button" class="btn btn-secondary" (click)="cancelDelete()">Cancel</button>
+                  </form>
+                </div>
+                
+
+                        <!-- New Product Form -->
+                  <div *ngIf="showAddProductForm">
+                    <form [formGroup]="productForm" (submit)="submitSupplierForm()">
+                      <div class="form-group">
+                        <label for="SupplierID">Supplier ID</label>
+                        <input type="text" class="form-control" id="SupplierID" formControlName="SupplierID" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="SupplierName">Supplier Name</label>
+                        <input type="text" class="form-control" id="SupplierName" formControlName="SupplierName" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="SupplierAddress">Address</label>
+                        <input type="text" class="form-control" id="SupplierAddress" formControlName="SupplierAddress" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="SupplierMail">E-Mail</label>
+                        <input type="text" class="form-control" id="SupplierMail" formControlName="SupplierMail" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="SupplierTel">Telephone No</label>
+                        <input type="text" class="form-control" id="SupplierTel" formControlName="SupplierTel" required>
+                      </div>
+                     
+                      <button style = "margin-bottom: 10px;" type="submit" class="btn btn-success">Submit</button>
+                      <button style = "margin-left: 10px; margin-bottom: 10px;" type="button" class="btn btn-secondary" (click)="showAddProductForm = false">Cancel</button>
+                    </form>
+                  </div>
+            
+                <table>
+                  <thead>
+                    <tr>
+                        <!-- SupplierID,SupplierName,SupplierAddress,SupplierMail,SupplierTel -->
+                      <th (click)="sortTable('SupplierID')">
+                        Supplier ID
+                        <i class="sort-indicator" [ngClass]="{'sort-asc': sortKey === 'SupplierID' && sortAsc, 'sort-desc': sortKey === 'SupplierID' && !sortAsc}"></i>
+                      </th>
+                      <th (click)="sortTable('SupplierName')">
+                        Supplier Name
+                        <i class="sort-indicator" [ngClass]="{'sort-asc': sortKey === 'SupplierName' && sortAsc, 'sort-desc': sortKey === 'SupplierName' && !sortAsc}"></i>
+                      </th>
+                      <th (click)="sortTable('SupplierAddress')">
+                        Address
+                        <i class="sort-indicator" [ngClass]="{'sort-asc': sortKey === 'SupplierAddress' && sortAsc, 'sort-desc': sortKey === 'SupplierAddress' && !sortAsc}"></i>
+                      </th>
+                      <th (click)="sortTable('SupplierMail')">
+                        E-Mail
+                        <i class="sort-indicator" [ngClass]="{'sort-asc': sortKey === 'SupplierMail' && sortAsc, 'sort-desc': sortKey === 'SupplierMail' && !sortAsc}"></i>
+                      </th>
+                      <th (click)="sortTable('SupplierTel')">
+                        Telephone No
+                        <i class="sort-indicator" [ngClass]="{'sort-asc': sortKey === 'SupplierTel' && sortAsc, 'sort-desc': sortKey === 'SupplierTel' && !sortAsc}"></i>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of getPageData()">
+                      <td>{{ item.SupplierID }}</td>
+                      <td>{{ item.SupplierName }}</td>
+                      <td>{{ item.SupplierAddress }}</td>
+                      <td>
+                        <a href="mailto:{{ item.SupplierMail }}">{{ item.SupplierMail }}</a>
+                      </td>
+                      <td>{{ item.SupplierTel }}</td>
+                      <!-- <td>
+                        <button class="btn btn-danger" (click)="deleteProduct(item.ProductID)">Delete</button>
+                      </td> -->
+                    </tr>
+                  </tbody>
+                </table>
+              
+                <div class="pagination">
+                  <button class="pagination-btn" [class.active]="currentPage === page" *ngFor="let page of getPaginationArray()" (click)="goToPage(page)">
+                    {{ page }}
+                  </button>
+                </div>
+              </div>
+          </div>
+      </div>
+  
+  </div>
+  </div>
+
+  
+

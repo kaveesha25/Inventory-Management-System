@@ -1,0 +1,113 @@
+<!-- <div class="container">
+  <div class="login-container">
+    <h2>Login</h2>
+    <form (ngSubmit)="login()" #loginForm="ngForm">
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" [(ngModel)]="username" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" [(ngModel)]="password" class="form-control" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Login</button>
+      <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
+    </form>
+    <p>Not registered? <a routerLink="/signup">Sign up here</a></p>
+  </div>
+</div> -->
+
+
+
+
+<!-- <div class="container">
+  <div class="login-container">
+    <h2>Login</h2>
+    <form (ngSubmit)="login()" #loginForm="ngForm">
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" [(ngModel)]="username" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" [(ngModel)]="password" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label class="remember-me-label">
+          <input type="checkbox" id="rememberMe" name="rememberMe" class="remember-me-checkbox">
+          Remember me
+        </label>
+      </div>
+      <button type="submit" class="btn btn-primary">Login</button>
+      <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
+    </form>
+    <p>Not registered? <a routerLink="/signup">Sign up here</a></p>
+  </div>
+  <div class="logo-container">
+    <img src="../../assets/logo.png" alt="Logo" class="logo">
+  </div>
+</div> -->
+<head>
+  <!-- your head content here -->
+</head>
+
+<body>
+ <div class="container">
+
+     <!-- Outer Row -->
+     <div class="row justify-content-center">
+
+         <div class="col-xl-10 col-lg-12 col-md-9">
+
+             <!-- <div class="card o-hidden border-0 shadow-lg my-5" style="background-color:blanchedalmond"> -->
+             <div class="card o-hidden border-0 shadow-lg my-5">
+                 <div class="card-body p-0">
+                     <!-- Nested Row within Card Body -->
+                     <div class="row">
+                         <div class="col-lg-6 d-none d-lg-block">   <div class="logo-container">
+                           <img src="../../assets/logo.png" alt="Logo" class="logo">
+                         </div>
+                         </div>
+                         <div class="col-lg-6">
+                             <div class="p-5">
+                                 <div class="text-center">
+                                     <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                 </div>
+                                 <form class="user" (ngSubmit)="login()" #loginForm="ngForm">
+                                     <div class="form-group">
+                                       <input type="text" id="username" name="username" [(ngModel)]="username" class="form-control form-control-user" placeholder="Enter Username" required>
+                                     </div>
+                                     <div class="form-group">
+                                       <input type="password" id="password" name="password" [(ngModel)]="password" class="form-control form-control-user" placeholder="Enter Password" required>
+                                     </div>
+                                     <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
+                                     <div class="form-group">
+                                         <div class="custom-control custom-checkbox small">
+                                             <input type="checkbox" class="custom-control-input" id="customCheck">
+                                             <label class="custom-control-label" for="customCheck">Remember
+                                                 Me</label>
+                                         </div>
+                                     </div>
+                                     <button type="submit" class="btn btn-primary btn-user btn-block">Login</button>
+                                   
+                                 </form>
+                                 <hr>
+                                 <div class="text-center">
+                                   <p>Not registered? <a routerLink="/signup">Sign up here</a></p>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+
+         </div>
+
+     </div>
+
+ </div>
+</body>
+
+
+
+  

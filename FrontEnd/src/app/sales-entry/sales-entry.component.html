@@ -1,0 +1,213 @@
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js">
+
+<div class="container">
+
+  <div class="row">
+
+    <!-- business information here -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center top-name">
+      <h1 class="text-center heading-size">
+        <!-- Shop & Location Name  -->
+        Ransara Motors
+      </h1>
+
+      <!-- Address -->
+      <h4>
+
+        <small class="text-center addres-size">
+          No 39, Kesbewa Road, Bandaragama
+
+          <br>
+          038 - 2292643
+        </small>
+      </h4>
+
+      <!-- Title of receipt -->
+
+      <!-- Invoice  number, Date  -->
+      <p style="width: 100% !important" class="word-wrap">
+        <!-- <span class="pull-left text-left word-wrap"> -->
+          <!-- customer info -->
+          <!-- <b>
+            {{ customerName }}
+          </b>
+          <br>
+          {{ customerAddress }}
+          <br>
+          {{ customerPhone }}
+        </span> -->
+        <span class="print-button-container">
+          <button (click)="printReceipt()" class=" btn btn-info btn-print">Print</button>
+        </span>
+        <span class="pull-right">
+          <!-- <b>
+            Bill No.
+            {{ billNumber }}
+          </b> -->
+          <br>
+          Date {{ currentDate | date: 'dd-MMM-yyyy' }}
+        </span>
+      </p>
+    </div>
+    <!-- /.col -->
+  </div>
+
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 items-div" style=" border: 0px solid ;">
+      <table class="table table-responsive  table-bordered" frame="hsides">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Item Name</th>
+            <th>Batch Number</th>
+            <th>Qty</th>
+            <th>Item Price</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of billItems; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.BatchNumber }}</td>
+            <td><input type="number" [(ngModel)]="item.quantity" (ngModelChange)="updateAmount(item)" min="1"></td>
+            <td>{{ item.price }}</td>
+            <td>{{ item.amount }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="pagebreak footer-size row" style="width: 100%; position: relative; margin-bottom: 0 !important; font-size: 10pt; page-break-inside: avoid !important; page-break-before: auto !important;">
+    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+      Total Items: <b>{{ totalItems }}</b>
+      <br>
+      <br>
+      <!-- <br>
+      Amount in words:
+      <br>
+      <b>{{ totalAmountInWords }}</b> -->
+    </div>
+
+    <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 pull-right" id="printSection">
+      <table class="table table-condensed">
+        <p style="color: red;" class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
+        <p style="color: green;" class="error-message" *ngIf="correctMessage">{{ correctMessage }}</p>
+        <tbody>
+          <tr>
+            <th>Bill Amount:</th>
+            <td class="text-align-class">₨ {{ billAmount }}</td>
+          </tr>
+          <!-- <tr>
+            <th>Discount</th>
+            <td class="text-align-class">(-) ₨ {{ discount }}</td>
+          </tr> -->
+          <tr>
+            <th>Total:</th>
+            <td class="text-align-class">₨ {{ totalAmount }}</td>
+          </tr>
+          <!-- <tr>
+            <th>Previous Balance</th>
+            <td class="text-align-class">₨ {{ previousBalance }}</td>
+          </tr> -->
+          <tr>
+            <th>Grand Total</th>
+            <td class="text-align-class">₨ {{ grandTotal }}</td>
+          </tr>
+          <tr>
+            <th>Total Paid</th>
+            <td class="text-align-class">₨ {{ totalPaid }}</td>
+          </tr>
+          <tr>
+            <th>Balance Left</th>
+            <td class="text-align-class">₨ {{ balanceLeft }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>{{ comments }}</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <!-- <p><span style="font-size:11px"><strong><span style="font-family:Arial,Helvetica,sans-serif">footer statement</span></strong></span></p> -->
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="form-inline">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Batch Number" [(ngModel)]="productId">
+        </div>
+        <button class="btn btn-info" (click)="addProduct()">Add Product</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- app.component.html -->
+
+<!-- ...existing code... -->
+
+<div class="pagebreak footer-size row">
+    <!-- ...existing code... -->
+  
+    <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 pull-right">
+      <table class="table table-condensed">
+        <!-- ...existing code... -->
+  
+        <tr>
+          <th>
+            Total Paid
+          </th>
+          <td class="text-align-class">
+            <input type="number" [(ngModel)]="totalPaid" (ngModelChange)="calculateBalance()" min="0">
+          </td>
+        </tr>
+  
+        <tr>
+          <th>
+            Balance Left
+          </th>
+          <td class="text-align-class">
+            ₨ {{ balanceLeft }}
+          </td>
+        </tr>
+      </table>
+      <p>{{ comments }}</p>
+    </div>
+  </div>
+
+  <!-- app.component.html -->
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <button (click)="submitSales()" class="btn btn-info">Submit Sales</button>
+      </div>
+    </div>
+<!-- 
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <button (click)="reduceProducts()" class="btn btn-info">Submit Sales</button>
+      </div>
+    </div> -->
+
+    <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"  style="margin-top: 15px;">
+        <button (click)="goBack()" class="btn btn-secondary">Go Back</button>
+    </div>
+
+    </div>
+
+   
+  
+  
+  
+</div>

@@ -1,0 +1,130 @@
+<app-upper-navbar></app-upper-navbar>
+<!-- <app-right-sidebar></app-right-sidebar> -->
+
+<div class="main-container">
+  <div class="sidebar">
+    <app-right-sidebar></app-right-sidebar>
+  </div>
+
+  <div class="content">
+    <!-- Add your table markup here -->
+    <div class="container-fluid">
+
+      <!-- Page Heading -->
+      <h1 class="h3 mb-2 text-gray-800">Purchases</h1>
+
+      <!-- DataTales Example -->
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Purchase Details</h6>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <input type="text" [(ngModel)]="searchText" (input)="applyFilter()" placeholder="Search" style="margin-bottom: 7px;height: 30px;border-radius: 5px;" />
+            <button style="float: right;margin-bottom: 10px;" (click)="toggleAddForm()" class="btn btn-info">Add Purchase</button>
+            <!-- <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                
+              </div>
+            </div> -->
+
+            <!-- Add the form here -->
+            <div *ngIf="showAddForm">
+              <form [formGroup]="purchaseForm" (submit)="submitPurchaseForm()">
+          
+                <div class="form-group">
+                  <label for="productId">Product ID</label>
+                  <input type="text" class="form-control" id="productId" formControlName="ProductID" required>
+                </div>
+                <div class="form-group">
+                  <label for="BatchNumber">Batch Number</label>
+                  <input type="text" class="form-control" id="BatchNumber" formControlName="BatchNumber" required>
+                </div>
+                <div class="form-group">
+                  <label for="Quantity">Quantity</label>
+                  <input type="text" class="form-control" id="Quantity" formControlName="Quantity" required>
+                </div>
+                <div class="form-group">
+                  <label for="dateOfOrder">Date of Order</label>
+                  <input type="text" class="form-control" id="dateOfOrder" formControlName="DateofOrder" required>
+                </div>
+                <div class="form-group">
+                  <label for="SupplierID">Supplier ID</label>
+                  <input type="text" class="form-control" id="SupplierID" formControlName="SupplierID" required>
+                </div>
+                <div class="form-group">
+                  <label for="dateReceived">Date Received</label>
+                  <input type="text" class="form-control" id="dateReceived" formControlName="DateReceived" required>
+                </div>
+                <div class="form-group">
+                  <label for="payment">Payment</label>
+                  <input type="text" class="form-control" id="payment" formControlName="Payment" required>
+                </div>
+                <button style = "margin-bottom: 10px;" type="submit" class="btn btn-info">Submit</button>
+                <button style = "margin-left: 10px; margin-bottom: 10px;" type="button" class="btn btn-secondary" (click)="showAddForm = false">Cancel</button>
+              </form>
+            
+            </div>
+
+            <table>
+              <thead>
+                <tr>
+                  <th (click)="sortTable('PurchaseID')">
+                    Purchase ID
+                    <i class="sort-indicator" [ngClass]="{'sort-asc': sortKey === 'PurchaseID' && sortAsc, 'sort-desc': sortKey === 'PurchaseID' && !sortAsc}"></i>
+                  </th>
+                  <th (click)="sortTable('ProductID')">
+                    Product ID
+                    <i class="sort-indicator" [ngClass]="{'sort-asc': sortKey === 'ProductID' && sortAsc, 'sort-desc': sortKey === 'ProductID' && !sortAsc}"></i>
+                  </th>
+                  <th (click)="sortTable('BatchNumber')">
+                    Batch Number
+                    <i class="sort-indicator" [ngClass]="{'sort-asc': sortKey === 'BatchNumber' && sortAsc, 'sort-desc': sortKey === 'BatchNumber' && !sortAsc}"></i>
+                  </th>
+                  <th (click)="sortTable('Quantity')">
+                    Quantity
+                    <i class="sort-indicator" [ngClass]="{'sort-asc': sortKey === 'Quantity' && sortAsc, 'sort-desc': sortKey === 'Quantity' && !sortAsc}"></i>
+                  </th>
+                  <th (click)="sortTable('DateofOrder')">
+                    Date of Order
+                    <i class="sort-indicator" [ngClass]="{'sort-asc': sortKey === 'DateofOrder' && sortAsc, 'sort-desc': sortKey === 'DateofOrder' && !sortAsc}"></i>
+                  </th>
+                  <th (click)="sortTable('Supplier')">
+                    Supplier ID
+                    <i class="sort-indicator" [ngClass]="{'sort-asc': sortKey === 'Supplier' && sortAsc, 'sort-desc': sortKey === 'Supplier' && !sortAsc}"></i>
+                  </th>
+                  <th (click)="sortTable('DateReceived')">
+                    Date Received
+                    <i class="sort-indicator" [ngClass]="{'sort-asc': sortKey === 'DateReceived' && sortAsc, 'sort-desc': sortKey === 'DateReceived' && !sortAsc}"></i>
+                  </th>
+                  <th (click)="sortTable('Payment')">
+                    Payment
+                    <i class="sort-indicator" [ngClass]="{'sort-asc': sortKey === 'Payment' && sortAsc, 'sort-desc': sortKey === 'Payment' && !sortAsc}"></i>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of getPageData()">
+                  <td>{{ item.PurchaseID }}</td>
+                  <td>{{ item.ProductID }}</td>
+                  <td>{{ item.BatchNumber }}</td>
+                  <td>{{ item.Quantity }}</td>   
+                  <td>{{ item.DateofOrder }}</td>
+                  <td>{{ item.SupplierID }}</td>
+                  <td>{{ item.DateReceived }}</td>
+                  <td>{{ item.Payment }}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="pagination">
+              <button class="pagination-btn" [class.active]="currentPage === page" *ngFor="let page of getPaginationArray()" (click)="goToPage(page)">
+                {{ page }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

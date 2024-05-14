@@ -1,0 +1,227 @@
+<app-upper-navbar></app-upper-navbar>
+<!-- <app-right-sidebar></app-right-sidebar> -->
+
+<div class="main-container">
+  <div class="sidebar">
+    <app-right-sidebar></app-right-sidebar>
+  </div>
+
+  <div class="content">
+    <!-- Add your table markup here -->
+    <div class="container-fluid">
+
+      <!-- Page Heading -->
+      <h1 class="h3 mb-2 text-gray-800">Products</h1>
+
+      <!-- DataTales Example -->
+      <div class="card shadow mb-4">
+          <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Product Details</h6>
+          </div>
+          <div class="card-body">
+              <div class="table-responsive">
+                <input type="text" [(ngModel)]="searchText" (input)="applyFilter()" placeholder="Search" style="margin-bottom: 7px;height: 30px;border-radius: 5px;"/>
+                 <!-- Delete Product Button -->
+                 <button style="float: right;margin-bottom: 10px;" class="btn btn-danger" (click)="deleteProduct()">Delete Product</button> 
+    
+                <!-- Add New Product Button -->
+                 <button style="float: right; margin-right: 20px;" class="btn btn-primary" (click)="addNewProduct()">Add New Product</button>
+                 
+                 <div *ngIf="showDeleteProductForm" class="delete-form">
+                  <form [formGroup]="productDeleteForm" (submit)="confirmDeleteProduct()">
+                    <div class="form-group">
+                      <label for="productIdToDelete">Batch Number</label>
+                      <input type="text" class="form-control" id="productIdToDelete" formControlName="productIdToDelete" required>
+                    </div>
+                    <button style = "margin-bottom: 10px;" type="submit" class="btn btn-danger">Confirm Delete</button>
+                    <button style = "margin-left: 10px; margin-bottom: 10px;" type="button" class="btn btn-secondary" (click)="cancelDelete()">Cancel</button>
+                  </form>
+                </div>
+                
+                  <!-- Update Product Form -->
+                  <div *ngIf="showUpdateProductForm" class="update-form">
+                    <form [formGroup]="updateProductForm" (submit)="updateProductDetails()">
+                      <div class="form-group">
+                        <label for="ProductID">Product ID</label>
+                        <input type="text" class="form-control" id="ProductID" formControlName="ProductID" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="BatchNumber">Batch Number</label>
+                        <input type="text" class="form-control" id="BatchNumber" formControlName="BatchNumber" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="ProductName">Product Name</label>
+                        <input type="text" class="form-control" id="ProductName" formControlName="ProductName" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="ProductBrand">Product Brand</label>
+                        <input type="text" class="form-control" id="ProductBrand" formControlName="ProductBrand" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="VehicleBrand">Vehicle Brand</label>
+                        <input type="text" class="form-control" id="VehicleBrand" formControlName="VehicleBrand" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="VehicleModel">Vehicle Model</label>
+                        <input type="text" class="form-control" id="VehicleModel" formControlName="VehicleModel" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="ManufactureYear">Manufacture Year</label>
+                        <input type="text" class="form-control" id="ManufactureYear" formControlName="ManufactureYear" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="Location">Location</label>
+                        <input type="text" class="form-control" id="Location" formControlName="Location" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="Quantity">Quantity</label>
+                        <input type="number" class="form-control" id="Quantity" formControlName="Quantity" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="BuyingPrice">Buying Price</label>
+                        <input type="number" class="form-control" id="BuyingPrice" formControlName="BuyingPrice" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="Price">Price</label>
+                        <input type="number" class="form-control" id="Price" formControlName="Price" required>
+                      </div>
+                      <button style="margin-bottom: 10px;" type="submit" class="btn btn-success">Update</button>
+                      <button style="margin-left: 10px; margin-bottom: 10px;" type="button" class="btn btn-secondary" (click)="cancelUpdate()">Cancel</button>
+                    </form>
+                  </div>
+                        <!-- New Product Form -->
+                  <div *ngIf="showAddProductForm">
+                    <form [formGroup]="productForm" (submit)="submitProductForm()">
+                      <div class="form-group">
+                        <label for="ProductID">Product ID</label>
+                        <input type="text" class="form-control" id="ProductID" formControlName="ProductID" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="BatchNumber">Batch Number</label>
+                        <input type="text" class="form-control" id="BatchNumber" formControlName="BatchNumber" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="ProductName">Product Name</label>
+                        <input type="text" class="form-control" id="ProductName" formControlName="ProductName" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="ProductBrand">Product Brand</label>
+                        <input type="text" class="form-control" id="ProductBrand" formControlName="ProductBrand" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="VehicleBrand">Vehicle Brand</label>
+                        <input type="text" class="form-control" id="VehicleBrand" formControlName="VehicleBrand" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="VehicleModel">Vehicle Model</label>
+                        <input type="text" class="form-control" id="VehicleModel" formControlName="VehicleModel" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="ManufactureYear">Manufacture Year</label>
+                        <input type="text" class="form-control" id="ManufactureYear" formControlName="ManufactureYear" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="Location">Location</label>
+                        <input type="text" class="form-control" id="Location" formControlName="Location" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="Quantity">Quantity</label>
+                        <input type="text" class="form-control" id="Quantity" formControlName="Quantity" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="BuyingPrice">Buying Price</label>
+                        <input type="text" class="form-control" id="BuyingPrice" formControlName="BuyingPrice" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="Price">Price</label>
+                        <input type="text" class="form-control" id="Price" formControlName="Price" required>
+                      </div>
+                      <button style = "margin-bottom: 10px;" type="submit" class="btn btn-success">Submit</button>
+                      <button style = "margin-left: 10px; margin-bottom: 10px;" type="button" class="btn btn-secondary" (click)="showAddProductForm = false">Cancel</button>
+                    </form>
+                  </div>
+            
+                <table>
+                  <thead>
+                    <tr>
+                      
+                      <th (click)="sortTable('ProductID')">
+                        Product ID
+                        <i class="sort-indicator" [ngClass]="{'sort-asc': sortKey === 'ProductID' && sortAsc, 'sort-desc': sortKey === 'ProductID' && !sortAsc}"></i>
+                      </th>
+                      <th (click)="sortTable('BatchNumber')">
+                        Batch Number
+                        <i class="sort-indicator" [ngClass]="{'sort-asc': sortKey === 'BatchNumber' && sortAsc, 'sort-desc': sortKey === 'BatchNumber' && !sortAsc}"></i>
+                      </th>
+                      <th (click)="sortTable('ProductName')">
+                        Product Name
+                        <i class="sort-indicator" [ngClass]="{'sort-asc': sortKey === 'ProductName' && sortAsc, 'sort-desc': sortKey === 'ProductName' && !sortAsc}"></i>
+                      </th>
+                      <th (click)="sortTable('ProductBrand')">
+                        Product Brand
+                        <i class="sort-indicator" [ngClass]="{'sort-asc': sortKey === 'ProductBrand' && sortAsc, 'sort-desc': sortKey === 'ProductBrand' && !sortAsc}"></i>
+                      </th>
+                      <th (click)="sortTable('VehicleBrand')">
+                        Vehicle Brand
+                        <i class="sort-indicator" [ngClass]="{'sort-asc': sortKey === 'VehicleBrand' && sortAsc, 'sort-desc': sortKey === 'VehicleBrand' && !sortAsc}"></i>
+                      </th>
+                      <th (click)="sortTable('VehicleModel')">
+                        Vehicle Model
+                        <i class="sort-indicator" [ngClass]="{'sort-asc': sortKey === 'VehicleModel' && sortAsc, 'sort-desc': sortKey === 'VehicleModel' && !sortAsc}"></i>
+                      </th>
+                      <th (click)="sortTable('ManufactureYear')">
+                        Manufacture Year
+                        <i class="sort-indicator" [ngClass]="{'sort-asc': sortKey === 'ManufactureYear' && sortAsc, 'sort-desc': sortKey === 'ManufactureYear' && !sortAsc}"></i>
+                      </th>
+                      <th (click)="sortTable('Location')">
+                        Location
+                        <i class="sort-indicator" [ngClass]="{'sort-asc': sortKey === 'Location' && sortAsc, 'sort-desc': sortKey === 'Location' && !sortAsc}"></i>
+                      </th>
+                      <th (click)="sortTable('Quantity')">
+                        Quantity
+                        <i class="sort-indicator" [ngClass]="{'sort-asc': sortKey === 'Quantity' && sortAsc, 'sort-desc': sortKey === 'Quantity' && !sortAsc}"></i>
+                      </th>
+                      <th (click)="sortTable('BuyingPrice')">
+                        Buying Price
+                        <i class="sort-indicator" [ngClass]="{'sort-asc': sortKey === 'BuyingPrice' && sortAsc, 'sort-desc': sortKey === 'BuyingPrice' && !sortAsc}"></i>
+                      </th>
+                      <th (click)="sortTable('Price')">
+                        Price
+                        <i class="sort-indicator" [ngClass]="{'sort-asc': sortKey === 'Price' && sortAsc, 'sort-desc': sortKey === 'Price' && !sortAsc}"></i>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of getPageData()">
+                      <td>{{ item.ProductID }}</td>
+                      <td>{{ item.BatchNumber }}</td>
+                      <td>{{ item.ProductName }}</td>
+                      <td>{{ item.ProductBrand }}</td>
+                      <td>{{ item.VehicleBrand }}</td>
+                      <td>{{ item.VehicleModel }}</td>
+                      <td>{{ item.ManufactureYear }}</td>
+                      <td>{{ item.Location }}</td>
+                      <td>{{ item.Quantity }}</td>
+                      <td>{{ item.BuyingPrice }}</td>
+                      <td>{{ item.Price }}</td>
+                      <td>
+                        <button class="btn btn-primary" (click)="updateProduct(item)">Update</button>
+                      </td>
+                
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div class="pagination">
+                  <button class="pagination-btn" [class.active]="currentPage === page" *ngFor="let page of getPaginationArray()" (click)="goToPage(page)">
+                    {{ page }}
+                  </button>
+                </div>
+              </div>
+          </div>
+      </div>
+  
+  </div>
+  </div>
+
+  
